@@ -56,7 +56,3 @@ Frontend web para el sistema de farmacia, desarrollado con **Angular 19**.
 - Configura la URL del backend en `src/environments/environment.ts`.
 - Para el escaneo con cámara, es necesario dar permisos al navegador.
 - Si usas un lector físico, basta con enfocar el input de código de barras.
-
----
-
-¿Necesitas incluir instrucciones de despliegue en producción o algún extra? Si tienes alguna preferencia de librería UI para el frontend, dime cuál y la incluyo.

@@ -1,0 +1,81 @@
+<mat-card class="login-card">
+  <mat-card-header>
+    <div class="header-content">
+      <mat-icon class="pharmacy-icon">local_pharmacy</mat-icon>
+      <mat-card-title>Farma System</mat-card-title>
+      <mat-card-subtitle>Iniciar Sesión</mat-card-subtitle>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      
+      <!-- Campo Usuario -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Usuario</mat-label>
+        <input 
+          matInput 
+          formControlName="usuario" 
+          placeholder="Ingresa tu usuario"
+          [class.is-invalid]="usuario?.invalid && usuario?.touched">
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="usuario?.hasError('required') && usuario?.touched">
+          El usuario es requerido
+        </mat-error>
+        <mat-error *ngIf="usuario?.hasError('minlength') && usuario?.touched">
+          El usuario debe tener al menos 3 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Campo Contraseña -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input 
+          matInput 
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="contrasena" 
+          placeholder="Ingresa tu contraseña"
+          [class.is-invalid]="contrasena?.invalid && contrasena?.touched">
+        <mat-icon 
+          matSuffix 
+          (click)="togglePasswordVisibility()" 
+          class="toggle-password">
+          {{hidePassword ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+        <mat-error *ngIf="contrasena?.hasError('required') && contrasena?.touched">
+          La contraseña es requerida
+        </mat-error>
+        <mat-error *ngIf="contrasena?.hasError('minlength') && contrasena?.touched">
+          La contraseña debe tener al menos 6 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Recordarme -->
+      <div class="form-options">
+        <mat-checkbox formControlName="rememberMe">
+          Recordarme
+        </mat-checkbox>
+      </div>
+
+      <!-- Botón de Login -->
+      <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit"
+        class="login-button"
+        [disabled]="isLoading">
+        <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+        <span *ngIf="!isLoading">Iniciar Sesión</span>
+        <span *ngIf="isLoading">Iniciando...</span>
+      </button>
+
+      <!-- Link a Registro -->
+      <div class="register-link">
+        <p>¿No tienes una cuenta? 
+          <a routerLink="/auth/register" class="register-text">Regístrate aquí</a>
+        </p>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

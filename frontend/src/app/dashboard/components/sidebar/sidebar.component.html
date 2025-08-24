@@ -1,0 +1,38 @@
+<div style="display: flex; height: 100vh; background: #f3f4f6;">
+  <!-- Sidebar -->
+  <aside style="width: 250px; background: #fff; box-shadow: 2px 0 8px #0001; display: flex; flex-direction: column;">
+    <div style="padding: 1.5rem; border-bottom: 1px solid #eee;">
+      <span style="font-size: 1.5rem; font-weight: bold; color: #2563eb;">FarmaPanel</span>
+    </div>
+    <nav style="flex: 1; padding: 1rem 0.5rem;">
+      <a routerLink="/dashboard/main" class="sidebar-sub">Dashboard</a>
+      <div>
+        <button (click)="gestionOpen = !gestionOpen"
+                style="width: 100%; background: none; border: none; padding: 0.5rem 0.75rem; text-align: left; color: #374151; font-size: 1rem; font-weight: 500; cursor: pointer; display: flex; align-items: center;">
+          Gestión
+          <span [ngClass]="{'rotate-90': gestionOpen}" style="margin-left: auto; transition: transform 0.2s;">
+            ▶
+          </span>
+        </button>
+        <div *ngIf="gestionOpen" style="margin-left: 1.5rem; margin-top: 0.5rem;">
+          <a routerLink="/dashboard/gestion/categorias" class="sidebar-sub">Categorías</a>
+          <a routerLink="/dashboard/gestion/clientes" class="sidebar-sub">Clientes</a>
+          <!-- ... -->
+        </div>
+      </div>
+      <a routerLink="/dashboard/ventas" class="sidebar-sub">Ventas</a>
+      <a routerLink="/dashboard/compras" class="sidebar-sub">Compras</a>
+      <a routerLink="/dashboard/atencion" class="sidebar-sub">Atención</a>
+      <a routerLink="/dashboard/informes" class="sidebar-sub">Informes</a>
+    </nav>
+    <div style="padding: 1rem; border-top: 1px solid #eee;">
+      <button style="width: 100%; background: #fee2e2; color: #dc2626; border: none; padding: 0.5rem; border-radius: 0.5rem;">
+        Cerrar sesión
+      </button>
+    </div>
+  </aside>
+  <!-- Main content -->
+  <main style="flex: 1; padding: 2rem; overflow-y: auto;">
+    <router-outlet></router-outlet>
+  </main>
+</div>

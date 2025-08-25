@@ -1,1 +1,77 @@
-<p>productos works!</p>
+<div class="productos-container">
+  <div class="productos-header">
+    <h2>Productos</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevoProducto()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="productos-barra">
+    <input
+      type="text"
+      placeholder="Buscar por nombre o código de barras..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarProductos()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="productos-table-wrap">
+    <table class="productos-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Código Barras</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio Compra</th>
+          <th>Precio Venta</th>
+          <th>Stock</th>
+          <th>ID Categoría</th>
+          <th>ID Proveedor</th>
+          <th>Fecha Caducidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prod of productosMostrados">
+          <td>{{ prod.id }}</td>
+          <td>{{ prod.codigo_barras }}</td>
+          <td>{{ prod.nombre }}</td>
+          <td>{{ prod.descripcion }}</td>
+          <td>{{ prod.precio_compra | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ prod.precio_venta | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ prod.stock }}</td>
+          <td>{{ prod.id_categoria }}</td>
+          <td>{{ prod.id_proveedor }}</td>
+          <td>{{ prod.fecha_caducidad }}</td>
+        </tr>
+        <tr *ngIf="productosMostrados.length === 0">
+          <td colspan="10" class="empty-row">No hay productos para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="productos-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="productos-info">
+    Mostrando {{ productosMostrados.length }} de {{ productos.length }}
+    productos. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

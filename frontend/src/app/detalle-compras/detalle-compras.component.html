@@ -1,1 +1,69 @@
-<p>detalle-compras works!</p>
+<div class="detalle-compras-container">
+  <div class="detalle-compras-header">
+    <h2>Detalle Compras</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevoDetalle()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="detalle-compras-barra">
+    <input
+      type="text"
+      placeholder="Buscar por id_compra o id_producto..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarDetalleCompras()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="detalle-compras-table-wrap">
+    <table class="detalle-compras-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>ID Compra</th>
+          <th>ID Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dc of detalleComprasMostrados">
+          <td>{{ dc.id }}</td>
+          <td>{{ dc.id_compra }}</td>
+          <td>{{ dc.id_producto }}</td>
+          <td>{{ dc.cantidad }}</td>
+          <td>{{ dc.precio_unitario | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ dc.subtotal | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr *ngIf="detalleComprasMostrados.length === 0">
+          <td colspan="6" class="empty-row">No hay detalles de compras para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="detalle-compras-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="detalle-compras-info">
+    Mostrando {{ detalleComprasMostrados.length }} de {{ detalleCompras.length }}
+    detalles. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

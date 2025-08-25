@@ -1,70 +1,22 @@
-<!-- ...header y otras partes iguales... -->
-<div class="gap-1 px-6 flex flex-1 justify-center py-5">
-  <div class="layout-content-container flex flex-col w-80">
-    <div class="flex h-full min-h-[700px] flex-col justify-between bg-slate-50 p-4">
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-col gap-2">
-          <!-- Dashboard -->
-          <div class="flex items-center gap-3 px-3 py-2 rounded-xl bg-[#e7edf4] cursor-pointer">
-            <!-- icon -->
-            <div class="text-[#0d141c]" data-icon="House" data-size="24px" data-weight="fill">
-              <!-- ...svg... -->
-            </div>
-            <p class="text-[#0d141c] text-sm font-medium leading-normal">Dashboard</p>
-          </div>
-          <!-- Gestión: con submenú -->
-          <div class="group">
-            <div class="flex items-center gap-3 px-3 py-2 cursor-pointer group-hover:bg-[#e7edf4] rounded-xl">
-              <div class="text-[#0d141c]" data-icon="Folder" data-size="24px" data-weight="regular">
-                <!-- ...svg... -->
-              </div>
-              <p class="text-[#0d141c] text-sm font-medium leading-normal">Gestión</p>
-              <!-- icono de flecha para submenú -->
-              <svg class="ml-auto transition-transform group-hover:rotate-90" width="20" height="20" fill="none" viewBox="0 0 20 20">
-                <path d="M6 8l4 4 4-4" stroke="#49739c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </div>
-            <!-- Submenú (mostrar/ocultar con JS o CSS en tu framework) -->
-            <div class="ml-7 mt-1 flex flex-col gap-1">
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Categorías</a>
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Clientes</a>
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Compras</a>
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Detalle Compras</a>
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Detalle Ventas</a>
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Empleados</a>
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Productos</a>
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Proveedores</a>
-              <a href="#" class="flex items-center gap-2 px-2 py-1 hover:bg-[#e7edf4] rounded text-sm">Ventas</a>
-            </div>
-          </div>
-          <!-- Resto de menú principal -->
-          <div class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-[#e7edf4] rounded-xl">
-            <div class="text-[#0d141c]" data-icon="CurrencyDollar" data-size="24px">
-              <!-- ...svg... -->
-            </div>
-            <p class="text-[#0d141c] text-sm font-medium leading-normal">Ventas</p>
-          </div>
-          <div class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-[#e7edf4] rounded-xl">
-            <div class="text-[#0d141c]" data-icon="ShoppingCart" data-size="24px">
-              <!-- ...svg... -->
-            </div>
-            <p class="text-[#0d141c] text-sm font-medium leading-normal">Compras</p>
-          </div>
-          <div class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-[#e7edf4] rounded-xl">
-            <div class="text-[#0d141c]" data-icon="Question" data-size="24px">
-              <!-- ...svg... -->
-            </div>
-            <p class="text-[#0d141c] text-sm font-medium leading-normal">Atención</p>
-          </div>
-          <div class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-[#e7edf4] rounded-xl">
-            <div class="text-[#0d141c]" data-icon="PresentationChart" data-size="24px">
-              <!-- ...svg... -->
-            </div>
-            <p class="text-[#0d141c] text-sm font-medium leading-normal">Informes</p>
-          </div>
-        </div>
+<div class="dashboard-root">
+  <app-sidebar></app-sidebar>
+  <main class="dashboard-content">
+    <div class="dashboard-header">
+      <div class="header-right">
+        <button class="header-btn" title="Cambiar modo oscuro" (click)="toggleDarkMode()">
+          <svg *ngIf="!darkMode" width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="11" cy="11" r="5" stroke="#2563eb" stroke-width="2"/>
+            <path d="M11 1v2M11 19v2M21 11h-2M3 11H1M17.07 17.07l-1.41-1.41M6.34 6.34L4.93 4.93M17.07 4.93l-1.41 1.41M6.34 15.66l-1.41 1.41" stroke="#2563eb" stroke-width="2"/>
+          </svg>
+          <svg *ngIf="darkMode" width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M17 15.5A7 7 0 0 1 7.5 5c0-2.5 2-4 4-4a9 9 0 1 0 9 9c0-2-1.5-4-4-4-1.5 0-2.5 1-2.5 2.5z" stroke="#2563eb" stroke-width="2" fill="#fff"/>
+          </svg>
+        </button>
+        <button class="header-btn" title="Usuario">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
+        </button>
       </div>
     </div>
-  </div>
-  <!-- ...resto dashboard... -->
+    <router-outlet></router-outlet>
+  </main>
 </div>

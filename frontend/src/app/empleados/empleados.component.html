@@ -1,1 +1,63 @@
-<p>empleados works!</p>
+<div class="empleados-container">
+  <div class="empleados-header">
+    <h2>Empleados</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevoEmpleado()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="empleados-barra">
+    <input
+      type="text"
+      placeholder="Buscar por usuario o nombre..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarEmpleados()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="empleados-table-wrap">
+    <table class="empleados-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of empleadosMostrados">
+          <td>{{ emp.id }}</td>
+          <td>{{ emp.usuario }}</td>
+          <td>{{ emp.nombre }}</td>
+        </tr>
+        <tr *ngIf="empleadosMostrados.length === 0">
+          <td colspan="3" class="empty-row">No hay empleados para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="empleados-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="empleados-info">
+    Mostrando {{ empleadosMostrados.length }} de {{ empleados.length }}
+    empleados. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

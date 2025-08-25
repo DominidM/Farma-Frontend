@@ -1,0 +1,75 @@
+<div class="venta-layout">
+  <!-- Panel izquierdo -->
+  <div class="venta-panel">
+    <h2>Datos de la Venta</h2>
+
+    <!-- Cliente -->
+    <div class="form-group">
+      <label for="cliente">Cliente</label>
+      <input id="cliente" type="text" placeholder="Buscar cliente...">
+      <button class="btn btn-small">+ Nuevo cliente</button>
+    </div>
+
+    <!-- Empleado -->
+    <div class="form-group">
+      <label for="empleado">Empleado</label>
+      <select id="empleado">
+        <option>Selecciona un empleado</option>
+        <option>Carlos Ruiz</option>
+        <option>María Torres</option>
+      </select>
+    </div>
+
+    <!-- Fecha -->
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+      <input id="fecha" type="date">
+    </div>
+  </div>
+
+  <!-- Panel derecho (principal) -->
+  <div class="venta-panel productos-panel">
+    <h2>Productos</h2>
+
+    <table class="detalle-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><select><option>Paracetamol</option></select></td>
+          <td><input type="number" value="1"></td>
+          <td><input type="number" value="10" readonly></td>
+          <td><input type="number" value="10" readonly></td>
+          <td><button class="btn-remove">&times;</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="totales">
+      <div>
+        <label>Total:</label>
+        <input type="text" value="0" readonly>
+      </div>
+      <div>
+        <label>Paga con:</label>
+        <input type="number" value="0">
+      </div>
+      <div>
+        <label>Vuelto:</label>
+        <input type="text" value="0" readonly>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary">Guardar Venta</button>
+      <button class="btn btn-secondary">Cancelar</button>
+    </div>
+  </div>
+</div>

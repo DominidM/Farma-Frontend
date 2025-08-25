@@ -1,1 +1,69 @@
-<p>detalle-ventas works!</p>
+<div class="detalle-ventas-container">
+  <div class="detalle-ventas-header">
+    <h2>Detalle Ventas</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevoDetalle()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="detalle-ventas-barra">
+    <input
+      type="text"
+      placeholder="Buscar por id_venta o id_producto..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarDetalleVentas()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="detalle-ventas-table-wrap">
+    <table class="detalle-ventas-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>ID Venta</th>
+          <th>ID Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dv of detalleVentasMostrados">
+          <td>{{ dv.id }}</td>
+          <td>{{ dv.id_venta }}</td>
+          <td>{{ dv.id_producto }}</td>
+          <td>{{ dv.cantidad }}</td>
+          <td>{{ dv.precio_unitario | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ dv.subtotal | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr *ngIf="detalleVentasMostrados.length === 0">
+          <td colspan="6" class="empty-row">No hay detalles de ventas para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="detalle-ventas-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="detalle-ventas-info">
+    Mostrando {{ detalleVentasMostrados.length }} de {{ detalleVentas.length }}
+    detalles. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

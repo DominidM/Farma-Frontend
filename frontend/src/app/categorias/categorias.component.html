@@ -1,1 +1,61 @@
-<p>categorias works!</p>
+<div class="categorias-container">
+  <div class="categorias-header">
+    <h2>Categorías</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevaCategoria()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="categorias-barra">
+    <input
+      type="text"
+      placeholder="Buscar por nombre..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarCategorias()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="categorias-table-wrap">
+    <table class="categorias-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cat of categoriasMostradas">
+          <td>{{ cat.id }}</td>
+          <td>{{ cat.nombre }}</td>
+        </tr>
+        <tr *ngIf="categoriasMostradas.length === 0">
+          <td colspan="2" class="empty-row">No hay categorías para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="categorias-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="categorias-info">
+    Mostrando {{ categoriasMostradas.length }} de {{ categorias.length }}
+    categorías. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

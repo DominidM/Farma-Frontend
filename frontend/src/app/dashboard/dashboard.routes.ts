@@ -9,8 +9,10 @@ export const DASHBOARD_ROUTES: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'main' },
       { path: 'main', loadComponent: () => import('./main/main.component').then(m => m.MainComponent) },
       { path: 'atencion', loadComponent: () => import('./atencion/atencion.component').then(m => m.AtencionComponent) },
-      { path: 'ventas', loadChildren: () => import('../ventas/ventas.routes').then(m => m.VENTAS_ROUTES) },
-      { path: 'compras', loadChildren: () => import('../compras/compras.routes').then(m => m.COMPRAS_ROUTES) },
+      // Historiales
+      { path: 'ventas_historial', loadChildren: () => import('../ventas/ventas.routes').then(m => m.VENTAS_ROUTES) },
+      { path: 'compras_historial', loadChildren: () => import('../compras/compras.routes').then(m => m.COMPRAS_ROUTES) },
+      // Gestión (CRUDs)
       {
         path: 'gestion',
         children: [
@@ -25,7 +27,10 @@ export const DASHBOARD_ROUTES: Routes = [
           { path: 'proveedores', loadChildren: () => import('../proveedores/proveedores.routes').then(m => m.PROVEEDORES_ROUTES) },
           { path: 'ventas', loadChildren: () => import('../ventas/ventas.routes').then(m => m.VENTAS_ROUTES) }
         ]
-      }
+      },
+      // Acciones rápidas
+      { path: 'nueva_venta', loadComponent: () => import('./nueva-venta/nueva-venta.component').then(m => m.NuevaVentaComponent) },
+      { path: 'nueva_compra', loadComponent: () => import('./nueva-compra/nueva-compra.component').then(m => m.NuevaCompraComponent) },
     ]
   }
 ];

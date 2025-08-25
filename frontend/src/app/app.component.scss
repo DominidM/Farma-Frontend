@@ -1,0 +1,13 @@
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6fb;
+}
+.main-content {
+  flex: 1 1 0;
+  margin-left: 270px; // igual al ancho del sidebar
+  min-height: 100vh;
+  padding: 32px 40px;
+  background: #f4f6fb;
+  overflow-x: auto;
+}

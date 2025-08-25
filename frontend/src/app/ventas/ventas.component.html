@@ -1,1 +1,67 @@
-<p>ventas works!</p>
+<div class="ventas-container">
+  <div class="ventas-header">
+    <h2>Ventas</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevaVenta()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="ventas-barra">
+    <input
+      type="text"
+      placeholder="Buscar por id_cliente o id_empleado..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarVentas()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="ventas-table-wrap">
+    <table class="ventas-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>ID Cliente</th>
+          <th>ID Empleado</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let venta of ventasMostradas">
+          <td>{{ venta.id }}</td>
+          <td>{{ venta.fecha }}</td>
+          <td>{{ venta.id_cliente }}</td>
+          <td>{{ venta.id_empleado }}</td>
+          <td>{{ venta.total | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr *ngIf="ventasMostradas.length === 0">
+          <td colspan="5" class="empty-row">No hay ventas para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ventas-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="ventas-info">
+    Mostrando {{ ventasMostradas.length }} de {{ ventas.length }}
+    ventas. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

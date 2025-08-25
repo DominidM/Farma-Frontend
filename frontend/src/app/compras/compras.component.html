@@ -1,1 +1,65 @@
-<p>compras works!</p>
+<div class="compras-container">
+  <div class="compras-header">
+    <h2>Compras</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevaCompra()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="compras-barra">
+    <input
+      type="text"
+      placeholder="Buscar por id_proveedor..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarCompras()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="compras-table-wrap">
+    <table class="compras-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>ID Proveedor</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comp of comprasMostradas">
+          <td>{{ comp.id }}</td>
+          <td>{{ comp.fecha }}</td>
+          <td>{{ comp.id_proveedor }}</td>
+          <td>{{ comp.total | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr *ngIf="comprasMostradas.length === 0">
+          <td colspan="4" class="empty-row">No hay compras para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="compras-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="compras-info">
+    Mostrando {{ comprasMostradas.length }} de {{ compras.length }}
+    compras. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

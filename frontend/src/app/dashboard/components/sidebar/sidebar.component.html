@@ -1,38 +1,64 @@
-<div style="display: flex; height: 100vh; background: #f3f4f6;">
-  <!-- Sidebar -->
-  <aside style="width: 250px; background: #fff; box-shadow: 2px 0 8px #0001; display: flex; flex-direction: column;">
-    <div style="padding: 1.5rem; border-bottom: 1px solid #eee;">
-      <span style="font-size: 1.5rem; font-weight: bold; color: #2563eb;">FarmaPanel</span>
-    </div>
-    <nav style="flex: 1; padding: 1rem 0.5rem;">
-      <a routerLink="/dashboard/main" class="sidebar-sub">Dashboard</a>
-      <div>
-        <button (click)="gestionOpen = !gestionOpen"
-                style="width: 100%; background: none; border: none; padding: 0.5rem 0.75rem; text-align: left; color: #374151; font-size: 1rem; font-weight: 500; cursor: pointer; display: flex; align-items: center;">
-          Gestión
-          <span [ngClass]="{'rotate-90': gestionOpen}" style="margin-left: auto; transition: transform 0.2s;">
-            ▶
-          </span>
-        </button>
-        <div *ngIf="gestionOpen" style="margin-left: 1.5rem; margin-top: 0.5rem;">
-          <a routerLink="/dashboard/gestion/categorias" class="sidebar-sub">Categorías</a>
-          <a routerLink="/dashboard/gestion/clientes" class="sidebar-sub">Clientes</a>
-          <!-- ... -->
-        </div>
-      </div>
-      <a routerLink="/dashboard/ventas" class="sidebar-sub">Ventas</a>
-      <a routerLink="/dashboard/compras" class="sidebar-sub">Compras</a>
-      <a routerLink="/dashboard/atencion" class="sidebar-sub">Atención</a>
-      <a routerLink="/dashboard/informes" class="sidebar-sub">Informes</a>
-    </nav>
-    <div style="padding: 1rem; border-top: 1px solid #eee;">
-      <button style="width: 100%; background: #fee2e2; color: #dc2626; border: none; padding: 0.5rem; border-radius: 0.5rem;">
-        Cerrar sesión
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <span class="sidebar-title">FarmaPanel</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a routerLink="/dashboard/main" class="sidebar-link" routerLinkActive="active">
+      <span class="icon">
+        <!-- Home icon SVG -->
+        <svg width="20" height="20" fill="none"><path d="M3 9.5L10 4l7 5.5V16a1 1 0 0 1-1 1h-3v-4H7v4H4a1 1 0 0 1-1-1V9.5Z" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Dashboard
+    </a>
+    <div class="sidebar-group">
+      <button class="sidebar-link group-toggle" type="button" (click)="gestionOpen = !gestionOpen" [attr.aria-expanded]="gestionOpen">
+        <span class="icon">
+          <!-- Menu icon SVG -->
+          <svg width="20" height="20" fill="none"><path d="M4 4h12v4H4V4Zm0 6h12v6H4v-6Z" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Gestión
+        <svg class="chevron" [class.rotate]="gestionOpen" width="18" height="18" fill="none" viewBox="0 0 24 24">
+          <path d="M9 5l7 7-7 7" stroke="#49739c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </button>
+      <div class="sidebar-subgroup" [class.open]="gestionOpen">
+        <a routerLink="/dashboard/gestion/categorias" class="sidebar-sublink" routerLinkActive="active">Categorías</a>
+        <a routerLink="/dashboard/gestion/clientes" class="sidebar-sublink" routerLinkActive="active">Clientes</a>
+        <a routerLink="/dashboard/gestion/compras" class="sidebar-sublink" routerLinkActive="active">Compras</a>
+        <a routerLink="/dashboard/gestion/detalle-compras" class="sidebar-sublink" routerLinkActive="active">Detalle Compras</a>
+        <a routerLink="/dashboard/gestion/detalle-ventas" class="sidebar-sublink" routerLinkActive="active">Detalle Ventas</a>
+        <a routerLink="/dashboard/gestion/empleados" class="sidebar-sublink" routerLinkActive="active">Empleados</a>
+        <a routerLink="/dashboard/gestion/productos" class="sidebar-sublink" routerLinkActive="active">Productos</a>
+        <a routerLink="/dashboard/gestion/proveedores" class="sidebar-sublink" routerLinkActive="active">Proveedores</a>
+        <a routerLink="/dashboard/gestion/ventas" class="sidebar-sublink" routerLinkActive="active">Ventas</a>
+      </div>
     </div>
-  </aside>
-  <!-- Main content -->
-  <main style="flex: 1; padding: 2rem; overflow-y: auto;">
-    <router-outlet></router-outlet>
-  </main>
-</div>
+    <div class="sidebar-separator"></div>
+    <a routerLink="/dashboard/nueva_venta" class="sidebar-link" routerLinkActive="active">
+      <span class="icon">
+        <svg width="20" height="20" fill="none"><circle cx="10" cy="10" r="8" stroke="#2563eb" stroke-width="2"/><path d="M6 10h8M10 6v8" stroke="#2563eb" stroke-width="2"/></svg>
+      </span>
+      Nueva Venta
+    </a>
+    <a routerLink="/dashboard/nueva_compra" class="sidebar-link" routerLinkActive="active">
+      <span class="icon">
+        <svg width="20" height="20" fill="none"><rect x="4" y="4" width="12" height="12" rx="2" stroke="#2563eb" stroke-width="2"/></svg>
+      </span>
+      Nueva Producto
+    </a>
+    <a routerLink="/dashboard/atencion" class="sidebar-link" routerLinkActive="active">
+      <span class="icon">
+        <svg width="20" height="20" fill="none"><circle cx="10" cy="10" r="8" stroke="#2563eb" stroke-width="2"/><path d="M10 14v-4M10 6h.01" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      Atención
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="logout-btn" (click)="logout()">
+      <span class="icon">
+        <svg width="20" height="20" fill="none"><path d="M10 17v-1a4 4 0 0 1 4-4h2m-6-8v1a4 4 0 0 0 4 4h2m-10 7h10" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Cerrar sesión
+    </button>
+  </div>
+</aside>

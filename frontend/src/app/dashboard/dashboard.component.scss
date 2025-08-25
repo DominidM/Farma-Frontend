@@ -1,0 +1,158 @@
+.dashboard-root {
+  display: flex;
+  height: 100vh;
+  background: #f4f5fa;
+}
+
+.sidebar {
+  width: 270px; // Sidebar más ancho
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1.5px solid #edeef2;
+  min-height: 100vh;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+
+  .sidebar-header {
+    padding-left: 32px;
+    padding-bottom: 16px;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #2563eb;
+  }
+  .sidebar-nav {
+    flex-grow: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    .sidebar-link,
+    .sidebar-sublink {
+      border-radius: 8px;
+      padding: 9px 18px;
+      margin-bottom: 4px;
+      font-size: 1.08rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sidebar-link.active, .sidebar-sublink.active {
+      background: #e0e7ff;
+      color: #2563eb;
+      font-weight: 600;
+    }
+    .sidebar-link:hover, .sidebar-sublink:hover {
+      background: #f1f5ff;
+    }
+  }
+  .sidebar-footer {
+    padding: 18px 20px;
+    .logout-btn {
+      width: 100%;
+      border-radius: 8px;
+      padding: 10px 0;
+      font-size: 1.05rem;
+    }
+  }
+}
+
+.dashboard-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: #f4f5fa;
+  transition: background 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 18px 18px 0 0;
+  min-height: 60px;
+  background: transparent;
+  .header-right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .header-btn {
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 1px 4px 0 rgba(60,72,99,0.08);
+    transition: background 0.2s;
+    &:hover {
+      background: #e8eaf0;
+    }
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    svg {
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+  }
+}
+
+/* ==== Modo oscuro ==== */
+body.dark-mode {
+  background: #1a1b1f;
+}
+
+body.dark-mode .dashboard-root,
+body.dark-mode .dashboard-content {
+  background: #18181b !important;
+  color: #f4f4f4 !important;
+}
+
+body.dark-mode .sidebar {
+  background: #23232b !important;
+  color: #e6e6ed !important;
+  border-color: #23232b !important;
+}
+
+body.dark-mode .sidebar-header {
+  color: #60a5fa !important;
+}
+
+body.dark-mode .sidebar-link,
+body.dark-mode .sidebar-sublink {
+  color: #e6e6ed !important;
+  background: transparent !important;
+}
+
+body.dark-mode .sidebar-link.active,
+body.dark-mode .sidebar-sublink.active {
+  background: #1e293b !important;
+  color: #60a5fa !important;
+}
+
+body.dark-mode .sidebar-link:hover,
+body.dark-mode .sidebar-sublink:hover {
+  background: #25253a !important;
+}
+
+body.dark-mode .dashboard-header,
+body.dark-mode .header-btn {
+  background: #23232b !important;
+  color: #e6e6ed !important;
+}
+body.dark-mode .header-btn {
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.16);
+}
+
+/* Puedes agregar más detalles para los gráficos, cards, etc. */

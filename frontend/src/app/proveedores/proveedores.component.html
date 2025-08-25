@@ -1,1 +1,65 @@
-<p>proveedores works!</p>
+<div class="proveedores-container">
+  <div class="proveedores-header">
+    <h2>Proveedores</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevoProveedor()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="proveedores-barra">
+    <input
+      type="text"
+      placeholder="Buscar por nombre, teléfono o dirección..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarProveedores()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="proveedores-table-wrap">
+    <table class="proveedores-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Teléfono</th>
+          <th>Dirección</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prov of proveedoresMostrados">
+          <td>{{ prov.id }}</td>
+          <td>{{ prov.nombre }}</td>
+          <td>{{ prov.telefono }}</td>
+          <td>{{ prov.direccion }}</td>
+        </tr>
+        <tr *ngIf="proveedoresMostrados.length === 0">
+          <td colspan="4" class="empty-row">No hay proveedores para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proveedores-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="proveedores-info">
+    Mostrando {{ proveedoresMostrados.length }} de {{ proveedores.length }}
+    proveedores. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

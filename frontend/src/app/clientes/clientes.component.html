@@ -1,1 +1,63 @@
-<p>clientes works!</p>
+<div class="clientes-container">
+  <div class="clientes-header">
+    <h2>Clientes</h2>
+    <button class="nuevo-btn" (click)="abrirModalNuevoCliente()">
+      + Nuevo
+    </button>
+  </div>
+  <div class="clientes-barra">
+    <input
+      type="text"
+      placeholder="Buscar por nombre..."
+      [(ngModel)]="busqueda"
+      (input)="filtrarClientes()"
+    />
+    <div class="mostrar-select">
+      <label>Mostrar:</label>
+      <select [(ngModel)]="cantidad" (change)="cambiarCantidad()">
+        <option *ngFor="let c of [5, 10, 20, 50]" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="clientes-table-wrap">
+    <table class="clientes-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Teléfono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cli of clientesMostrados">
+          <td>{{ cli.id }}</td>
+          <td>{{ cli.nombre }}</td>
+          <td>{{ cli.telefono }}</td>
+        </tr>
+        <tr *ngIf="clientesMostrados.length === 0">
+          <td colspan="3" class="empty-row">No hay clientes para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="clientes-paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">&lt;</button>
+    <button
+      *ngFor="let pag of paginasTotales"
+      (click)="irAPagina(pag)"
+      [class.active]="pagina === pag"
+    >
+      {{ pag }}
+    </button>
+    <button
+      (click)="paginaSiguiente()"
+      [disabled]="pagina === paginasTotales.length || paginasTotales.length === 0"
+    >
+      &gt;
+    </button>
+  </div>
+  <div class="clientes-info">
+    Mostrando {{ clientesMostrados.length }} de {{ clientes.length }}
+    clientes. Página {{ pagina }} de {{ paginasTotales.length }}.
+  </div>
+</div>

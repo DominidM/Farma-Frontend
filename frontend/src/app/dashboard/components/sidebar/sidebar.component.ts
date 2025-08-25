@@ -1,11 +1,21 @@
 import { Component } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
-  standalone: true
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive] 
 })
-export class DashboardComponent {
-  gestionOpen = false;
+export class SidebarComponent {
+  gestionOpen = false; 
+
+  constructor(private router: Router) {}
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 }
